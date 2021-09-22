@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Item index{% endblock %}
+
+{% block body %}
+    <h1>Liste de course :</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <br/>
+        <button class="btn btn-success btn-block" style="border-radius:25px;"><i class="fas fa-plus"></i></button>
+    {{ form_end(form) }}
+
+    <table class="table" style="margin-top:25px;">
+        <thead>
+            <th>Item</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            {% for item in items %}
+                <tr>
+                    <td {% if item.isBuy %}style="background-color:#ffaca6;color:#bd1609;text-decoration: line-through;"{% endif %}>{{ item.name }}</td>
+                    <td>
+                        <a href="{{ path('check', {'id': item.id}) }}" class="btn btn-primary" style="border-radius:25px;"><i class="fas fa-check"></i></a>
+                        <a href="{{ path('remove', {'id': item.id}) }}" class="btn btn-danger" style="border-radius:25px;"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2">Aucun élément</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
